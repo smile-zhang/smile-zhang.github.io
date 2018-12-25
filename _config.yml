@@ -1,31 +1,41 @@
-name: Herring Cove
-author: Herring Cove
-baseurl: /herring-cove
-description: theme for jekyll
-github: http://www.github.com/arnp
-twitter: http://www.twitter.com/
-facebook: http://www.facebook.com
-linkedin: http://www.linkedin.com
-email: rnpatel[at]me.com
-location: 42°2'16"N   70°12'47"W
-disqus: diqus-username
+# Jekyll configuration
 
-##Make sure to edit the above fields, especially for disqus.
+name: drew blog
+description: 没事就写写
 
+# url is currently only used only for the RSS feed in feed.xml
+url: https://smile-zhang.github.io
 
-highlighter: pygments
-markdown: redcarpet
-redcarpet:
-  extensions: ["tables"]
+# baseurl will often be '', but for a project page on gh-pages, it needs to
+# be the project name.
+# *** IMPORTANT: If your local "jekyll serve" throws errors change this to '' or
+#     run it like so: jekyll serve --baseurl=''
+baseurl: /
 
-defaults:
-  - scope:
-      path: ""
-      type: "pages"
-    values:
-      layout: "default"
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
+# These can be '' to hide the Github or Gitlab nav buttons
+github: 'smile-zhang/'
+gitlab: ''
+
+# Set this to your UA-# value, or '' to disable the block completely
+gaaccount: ''
+
+# The 'comments' setting enables comments. You'll need to select either
+# disqus or isso below to choose a comment system. Individual posts can
+# override 'comments' to disable on a post-by-post basis.
+comments: true
+
+# Set this to your public isso URL to enable comments via isso. Set to '' to disable isso.
+isso: ''
+
+# Set this to your disqus shortname to enable comments via disqus. Set to '' to disable disqus.
+disqus: ''
+
+permalink: /:year/:month/:title
+paginate: 3
+
+highlighter: rouge
+markdown: kramdown
+#gems: ['jekyll-paginate']
+gem 'jekyll-paginate', group: :jekyll_plugins
+
+exclude: ['README.md', 'LICENSE']

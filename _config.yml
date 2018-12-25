@@ -1,8 +1,9 @@
 name: He
 author: He
-baseurl: /herring-cove
+# baseurl: /herring-cove
+baseurl: /
 description: theme for jekyll
-github: http://www.github.com/arnp
+# github: http://www.github.com/arnp
 twitter: http://www.twitter.com/
 facebook: http://www.facebook.com
 linkedin: http://www.linkedin.com
@@ -12,9 +13,15 @@ disqus: diqus-username
 
 ##Make sure to edit the above fields, especially for disqus.
 
+highlighter: rouge
+markdown: kramdown
+#gems: ['jekyll-paginate']
+gem 'jekyll-paginate', group: :jekyll_plugins
 
-highlighter: pygments
-markdown: redcarpet
+#exclude: ['README.md', 'LICENSE']
+
+# highlighter: pygments
+# markdown: redcarpet
 redcarpet:
   extensions: ["tables"]
 

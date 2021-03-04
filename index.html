@@ -185,10 +185,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="java-锁机制"><a href="#java-锁机制" class="headerlink" title="java 锁机制"></a>java 锁机制</h1><ol>
-<li>锁的分类</li>
-</ol>
-<ul>
+        <h3 id="1-锁的分类"><a href="#1-锁的分类" class="headerlink" title="1. 锁的分类"></a>1. 锁的分类</h3><ul>
 <li><p>公平锁和非公平锁(获取锁的方式)</p>
 <blockquote>
 <p>公平锁是指 按照申请锁的顺序来获取锁<br>非公平涣是指 锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).<br>Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁<br>ReentrantLock 可以通过构造函数来决定是不是公平锁,默认是非公平锁</p>

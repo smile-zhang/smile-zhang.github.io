@@ -6,15 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Category: blog | drew的博客</title>
+  <title>java锁机制 | drew的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="drew的博客">
-<meta property="og:url" content="http://example.com/categories/mac/blog/index.html">
+  <meta name="description" content="java 锁机制 锁的分类   公平锁和非公平锁(获取锁的方式)  公平锁是指 按照申请锁的顺序来获取锁非公平涣是指 锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁ReentrantLock 可以通过构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java锁机制">
+<meta property="og:url" content="http://example.com/2021/03/05/java%E9%94%81%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="drew的博客">
+<meta property="og:description" content="java 锁机制 锁的分类   公平锁和非公平锁(获取锁的方式)  公平锁是指 按照申请锁的顺序来获取锁非公平涣是指 锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁ReentrantLock 可以通过构">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-03-04T16:09:42.000Z">
+<meta property="article:modified_time" content="2021-03-04T16:11:07.444Z">
 <meta property="article:author" content="drew">
-<meta property="article:tag" content="java,sql,数据库,中间件,开源技术">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="并发">
+<meta property="article:tag" content="多线程">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="drew的博客" type="application/atom+xml">
@@ -163,79 +169,231 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-java锁机制" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/28/newBlog/" class="archive-article-date">
-  	<time datetime="2021-02-28T05:09:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-28</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/28/newBlog/">mac+node+githubpage 搭建博客</a>
+    <h1 class="article-title" itemprop="name">
+      java锁机制
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/03/05/java%E9%94%81%E6%9C%BA%E5%88%B6/" class="archive-article-date">
+  	<time datetime="2021-03-04T16:09:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="java-锁机制"><a href="#java-锁机制" class="headerlink" title="java 锁机制"></a>java 锁机制</h1><ol>
+<li>锁的分类</li>
+</ol>
+<ul>
+<li><p>公平锁和非公平锁(获取锁的方式)</p>
+<blockquote>
+<p>公平锁是指 按照申请锁的顺序来获取锁<br>非公平涣是指 锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).<br>Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁<br>ReentrantLock 可以通过构造函数来决定是不是公平锁,默认是非公平锁</p>
+</blockquote>
+</li>
+<li><p>独享锁/共享锁</p>
+<blockquote>
+<p>顾名思义 独享锁就是同时只能的一个线程持有, 而共享锁同时可以有多个线程一起持有<br>Synchronized 就是一种独享锁<br>lock 接口的 实现 : reentrantLock也是一种独享锁,非readWritLock其读锁是共享锁,写锁是独享锁. 其中读锁在高并发下是非常高效的.读写\写读\写写是互斥的</p>
+</blockquote>
+</li>
+<li><p>互斥锁/读写锁(锁的实现 对于独享锁/共享锁)</p>
+</li>
+<li><p>乐观锁/悲观锁(如何看待并发)</p>
+<blockquote>
+<p>悲观锁认为 : 对同一个数据(资源)的操作,必定是会有并发修改(冲突)的,即使没有,也认为有,所以对于一次数据操作,悲观锁必定采用加锁操,悲观的认为 不加锁的操作一定会出问题</p>
+<p>乐观锁认为 : 乐观的认为 不加锁的操作不会出总是, 所以乐观锁是采用无锁编程,常常采用cas算法. 伪代码如下 :</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>查询数据库,查询结果version=<span class="number">1</span></span><br><span class="line"><span class="number">2.</span>执行更新,在<span class="keyword">sql</span> <span class="keyword">where</span>条件中判断 当前 数据中<span class="keyword">version</span>是否等于一,</span><br><span class="line"><span class="number">3.</span>如果等于<span class="number">1</span>表示没有并发,更新成功</span><br><span class="line"><span class="number">4.</span>如果当前数据中 <span class="keyword">version</span>已经不等于<span class="number">1</span> ,则递归执行此方法,直到查询的<span class="keyword">version</span>和更新时的<span class="keyword">version</span>相等</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>分段锁(锁的设计)</p>
+<blockquote>
+<p>是一种锁的设计方式,典型的如 concurrentHashMap中的put操作,它就是把Node数组中的一个元素(node节点)加锁,当其它实例想要执行put操作时,会先尝试获取锁,如果当前node已经做为锁被其它线程持有了,那线程进行等待,</p>
+<ul>
+<li><p>偏向锁/轻量级锁/重量级锁 (锁的状态)</p>
+</li>
+<li><p>自旋锁(Java中的自旋锁)<br>是指线程如果获取不到锁,不会立即阻塞,而是通过循环的方式去尝试获取锁,这样做的好像是,减少线程上下文切换的消耗,缺点是循环会消耗cpu.</p>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>自旋锁的升级</p>
+<blockquote>
+<ol>
+<li>可重入  : 引入计数器,如果当前线程又一次执行lock方法,想要获取锁,比较正在持有锁的线程和当前线程,如果一致,则计数器+1 , unlock 方法反之</li>
+<li>公平锁 : 引入服务号和排队号,即每个线程执行lock方法时,排队号+1,unlocak时服务号+1, 线程的循环等待中 ,判断自己的排队号和服务号一致,则获取锁成功</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<ol start="2">
+<li>synchronized 的两种用法 </li>
+</ol>
+<ul>
+<li>synchronized 修饰代码块</li>
+<li>synchronized 修饰方法</li>
+<li>synchronized 修饰静态方法</li>
+</ul>
+<ol start="3">
+<li> redis 分布式锁</li>
+</ol>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">mac</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">blog</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">并发</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多线程</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/mac//" class="article-tag-list-link color4">mac</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/mac/blog//" class="article-tag-list-link color5">blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/05/java%E9%94%81%E6%9C%BA%E5%88%B6/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2021/02/28/newBlog/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mac+node+githubpage 搭建博客</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -258,10 +416,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",

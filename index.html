@@ -165,6 +165,144 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-java锁机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/05/java%E9%94%81%E6%9C%BA%E5%88%B6/">java锁机制</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/05/java%E9%94%81%E6%9C%BA%E5%88%B6/" class="archive-article-date">
+  	<time datetime="2021-03-04T16:09:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="java-锁机制"><a href="#java-锁机制" class="headerlink" title="java 锁机制"></a>java 锁机制</h1><ol>
+<li>锁的分类</li>
+</ol>
+<ul>
+<li><p>公平锁和非公平锁(获取锁的方式)</p>
+<blockquote>
+<p>公平锁是指 按照申请锁的顺序来获取锁<br>非公平涣是指 锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).<br>Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁<br>ReentrantLock 可以通过构造函数来决定是不是公平锁,默认是非公平锁</p>
+</blockquote>
+</li>
+<li><p>独享锁/共享锁</p>
+<blockquote>
+<p>顾名思义 独享锁就是同时只能的一个线程持有, 而共享锁同时可以有多个线程一起持有<br>Synchronized 就是一种独享锁<br>lock 接口的 实现 : reentrantLock也是一种独享锁,非readWritLock其读锁是共享锁,写锁是独享锁. 其中读锁在高并发下是非常高效的.读写\写读\写写是互斥的</p>
+</blockquote>
+</li>
+<li><p>互斥锁/读写锁(锁的实现 对于独享锁/共享锁)</p>
+</li>
+<li><p>乐观锁/悲观锁(如何看待并发)</p>
+<blockquote>
+<p>悲观锁认为 : 对同一个数据(资源)的操作,必定是会有并发修改(冲突)的,即使没有,也认为有,所以对于一次数据操作,悲观锁必定采用加锁操,悲观的认为 不加锁的操作一定会出问题</p>
+<p>乐观锁认为 : 乐观的认为 不加锁的操作不会出总是, 所以乐观锁是采用无锁编程,常常采用cas算法. 伪代码如下 :</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>查询数据库,查询结果version=<span class="number">1</span></span><br><span class="line"><span class="number">2.</span>执行更新,在<span class="keyword">sql</span> <span class="keyword">where</span>条件中判断 当前 数据中<span class="keyword">version</span>是否等于一,</span><br><span class="line"><span class="number">3.</span>如果等于<span class="number">1</span>表示没有并发,更新成功</span><br><span class="line"><span class="number">4.</span>如果当前数据中 <span class="keyword">version</span>已经不等于<span class="number">1</span> ,则递归执行此方法,直到查询的<span class="keyword">version</span>和更新时的<span class="keyword">version</span>相等</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>分段锁(锁的设计)</p>
+<blockquote>
+<p>是一种锁的设计方式,典型的如 concurrentHashMap中的put操作,它就是把Node数组中的一个元素(node节点)加锁,当其它实例想要执行put操作时,会先尝试获取锁,如果当前node已经做为锁被其它线程持有了,那线程进行等待,</p>
+<ul>
+<li><p>偏向锁/轻量级锁/重量级锁 (锁的状态)</p>
+</li>
+<li><p>自旋锁(Java中的自旋锁)<br>是指线程如果获取不到锁,不会立即阻塞,而是通过循环的方式去尝试获取锁,这样做的好像是,减少线程上下文切换的消耗,缺点是循环会消耗cpu.</p>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>自旋锁的升级</p>
+<blockquote>
+<ol>
+<li>可重入  : 引入计数器,如果当前线程又一次执行lock方法,想要获取锁,比较正在持有锁的线程和当前线程,如果一致,则计数器+1 , unlock 方法反之</li>
+<li>公平锁 : 引入服务号和排队号,即每个线程执行lock方法时,排队号+1,unlocak时服务号+1, 线程的循环等待中 ,判断自己的排队号和服务号一致,则获取锁成功</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<ol start="2">
+<li>synchronized 的两种用法 </li>
+</ol>
+<ul>
+<li>synchronized 修饰代码块</li>
+<li>synchronized 修饰方法</li>
+<li>synchronized 修饰静态方法</li>
+</ul>
+<ol start="3">
+<li> redis 分布式锁</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">并发</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多线程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/05/java%E9%94%81%E6%9C%BA%E5%88%B6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-newBlog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -366,6 +504,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">blog</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
             
             <div class="clearfix"></div>

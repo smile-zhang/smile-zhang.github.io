@@ -16,7 +16,7 @@
 <meta property="og:description" content="[toc] 1. 锁的分类公平锁和非公平锁(获取锁的方式)&gt; 公平锁是指 按照申请锁的顺序来获取锁 &gt; 非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行). &gt; Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁 &gt; Re">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-03-04T16:09:42.000Z">
-<meta property="article:modified_time" content="2021-03-05T06:09:35.719Z">
+<meta property="article:modified_time" content="2021-03-05T06:19:00.384Z">
 <meta property="article:author" content="drew">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="并发">
@@ -243,7 +243,7 @@
 <h4 id="unloac"><a href="#unloac" class="headerlink" title="unloac"></a>unloac</h4><blockquote>
 <p>解锁之前,判断自己持有的锁是否超时了,如果超时,不重复解锁</p>
 </blockquote>
-
+<h3 id="4-自旋锁的实现与升级"><a href="#4-自旋锁的实现与升级" class="headerlink" title="4. 自旋锁的实现与升级"></a>4. 自旋锁的实现与升级</h3>
       
 
       

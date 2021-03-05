@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>java锁机制 | drew的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[toc] 1. 锁的分类公平锁和非公平锁(获取锁的方式)&gt; 公平锁是指 按照申请锁的顺序来获取锁 &gt; 非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行). &gt; Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁 &gt; Re">
+  <meta name="description" content="1. 锁的分类公平锁和非公平锁(获取锁的方式)&gt; 公平锁是指 按照申请锁的顺序来获取锁 &gt; 非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行). &gt; Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁 &gt; Reentran">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java锁机制">
 <meta property="og:url" content="http://example.com/2021/03/05/java%E9%94%81%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="drew的博客">
-<meta property="og:description" content="[toc] 1. 锁的分类公平锁和非公平锁(获取锁的方式)&gt; 公平锁是指 按照申请锁的顺序来获取锁 &gt; 非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行). &gt; Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁 &gt; Re">
+<meta property="og:description" content="1. 锁的分类公平锁和非公平锁(获取锁的方式)&gt; 公平锁是指 按照申请锁的顺序来获取锁 &gt; 非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行). &gt; Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁 &gt; Reentran">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-03-04T16:09:42.000Z">
-<meta property="article:modified_time" content="2021-03-05T06:19:00.384Z">
+<meta property="article:modified_time" content="2021-03-05T06:24:55.238Z">
 <meta property="article:author" content="drew">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="并发">
@@ -189,8 +189,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>[toc]</p>
-<h3 id="1-锁的分类"><a href="#1-锁的分类" class="headerlink" title="1. 锁的分类"></a>1. 锁的分类</h3><h4 id="公平锁和非公平锁-获取锁的方式"><a href="#公平锁和非公平锁-获取锁的方式" class="headerlink" title="公平锁和非公平锁(获取锁的方式)"></a>公平锁和非公平锁(获取锁的方式)</h4><pre><code>&gt; 公平锁是指 按照申请锁的顺序来获取锁
+        <h3 id="1-锁的分类"><a href="#1-锁的分类" class="headerlink" title="1. 锁的分类"></a>1. 锁的分类</h3><h4 id="公平锁和非公平锁-获取锁的方式"><a href="#公平锁和非公平锁-获取锁的方式" class="headerlink" title="公平锁和非公平锁(获取锁的方式)"></a>公平锁和非公平锁(获取锁的方式)</h4><pre><code>&gt; 公平锁是指 按照申请锁的顺序来获取锁
 &gt; 非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).
 &gt; Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁
 &gt; ReentrantLock 可以通过构造函数来决定是不是公平锁,默认是非公平锁
@@ -198,8 +197,11 @@
 <h4 id="独享锁-共享锁"><a href="#独享锁-共享锁" class="headerlink" title="独享锁/共享锁"></a>独享锁/共享锁</h4><blockquote>
 <p>顾名思义 独享锁就是同时只能的一个线程持有, 而共享锁同时可以有多个线程一起持有<br>Synchronized 就是一种独享锁<br>lock 接口的 实现 : reentrantLock也是一种独享锁,非readWritLock其读锁是共享锁,写锁是独享锁. 其中读锁在高并发下是非常高效的.读写\写读\写写是互斥的</p>
 </blockquote>
+<span id="more"></span>
 <h4 id="互斥锁-读写锁-锁的实现-对于独享锁-共享锁"><a href="#互斥锁-读写锁-锁的实现-对于独享锁-共享锁" class="headerlink" title="互斥锁/读写锁(锁的实现 对于独享锁/共享锁)"></a>互斥锁/读写锁(锁的实现 对于独享锁/共享锁)</h4><h4 id="乐观锁-悲观锁-如何看待并发"><a href="#乐观锁-悲观锁-如何看待并发" class="headerlink" title="乐观锁/悲观锁(如何看待并发)"></a>乐观锁/悲观锁(如何看待并发)</h4><blockquote>
 <p>悲观锁认为 : 对同一个数据(资源)的操作,必定是会有并发修改(冲突)的,即使没有,也认为有,所以对于一次数据操作,悲观锁必定采用加锁操,悲观的认为 不加锁的操作一定会出问题</p>
+</blockquote>
+<blockquote>
 <p>乐观锁认为 : 乐观的认为 不加锁的操作不会出总是, 所以乐观锁是采用无锁编程,常常采用cas算法. 伪代码如下 :</p>
 </blockquote>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>查询数据库,查询结果version=<span class="number">1</span></span><br><span class="line"><span class="number">2.</span>执行更新,在<span class="keyword">sql</span> <span class="keyword">where</span>条件中判断 当前 数据中<span class="keyword">version</span>是否等于一,</span><br><span class="line"><span class="number">3.</span>如果等于<span class="number">1</span>表示没有并发,更新成功</span><br><span class="line"><span class="number">4.</span>如果当前数据中 <span class="keyword">version</span>已经不等于<span class="number">1</span> ,则递归执行此方法,直到查询的<span class="keyword">version</span>和更新时的<span class="keyword">version</span>相等</span><br></pre></td></tr></table></figure>

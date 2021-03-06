@@ -6,15 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>drew的博客</title>
+  <title>并发相关 | drew的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="drew的博客">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="并发相关基本多线程的实现方式1.继承Thread 类2.实现Runnable 接口3.实现Callable 接口 -&gt; 有返回值 get() 获取返回值会阻塞主线程  线程池newCachedThreadPool 根据需要来创建新线程的线程池.长时间 不使用的线程会终止,并从缓存移除. 适合 执行很多短期异步任务的程序. 调用execute 方法来使用以前创建好的线程.如果没有可用的线程,就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发相关">
+<meta property="og:url" content="http://example.com/2021/03/06/%E5%B9%B6%E5%8F%91%E7%9B%B8%E5%85%B3/index.html">
 <meta property="og:site_name" content="drew的博客">
+<meta property="og:description" content="并发相关基本多线程的实现方式1.继承Thread 类2.实现Runnable 接口3.实现Callable 接口 -&gt; 有返回值 get() 获取返回值会阻塞主线程  线程池newCachedThreadPool 根据需要来创建新线程的线程池.长时间 不使用的线程会终止,并从缓存移除. 适合 执行很多短期异步任务的程序. 调用execute 方法来使用以前创建好的线程.如果没有可用的线程,就">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-03-06T04:11:30.000Z">
+<meta property="article:modified_time" content="2021-03-06T04:12:48.025Z">
 <meta property="article:author" content="drew">
-<meta property="article:tag" content="java,sql,数据库,中间件,开源技术">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="thread">
+<meta property="article:tag" content="threadPool">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="drew的博客" type="application/atom+xml">
@@ -163,16 +169,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-并发相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-并发相关" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/06/%E5%B9%B6%E5%8F%91%E7%9B%B8%E5%85%B3/">并发相关</a>
+    <h1 class="article-title" itemprop="name">
+      并发相关
     </h1>
   
 
@@ -205,6 +209,27 @@
     
         
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -231,16 +256,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/06/%E5%B9%B6%E5%8F%91%E7%9B%B8%E5%85%B3/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/06/%E5%B9%B6%E5%8F%91%E7%9B%B8%E5%85%B3/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2021/03/05/java%E9%94%81%E6%9C%BA%E5%88%B6/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java锁机制</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -260,203 +344,14 @@
 
 
 
-
   
-    <article id="post-java锁机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/05/java%E9%94%81%E6%9C%BA%E5%88%B6/">java锁机制</a>
-    </h1>
   
 
-        
-        <a href="/2021/03/05/java%E9%94%81%E6%9C%BA%E5%88%B6/" class="archive-article-date">
-  	<time datetime="2021-03-04T16:09:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-锁的分类"><a href="#1-锁的分类" class="headerlink" title="1. 锁的分类"></a>1. 锁的分类</h3><h4 id="公平锁和非公平锁-获取锁的方式"><a href="#公平锁和非公平锁-获取锁的方式" class="headerlink" title="公平锁和非公平锁(获取锁的方式)"></a>公平锁和非公平锁(获取锁的方式)</h4><pre><code>&gt; 公平锁是指 按照申请锁的顺序来获取锁
-&gt; 非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).
-&gt; Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁
-&gt; ReentrantLock 可以通过构造函数来决定是不是公平锁,默认是非公平锁
-</code></pre>
-<h4 id="独享锁-共享锁"><a href="#独享锁-共享锁" class="headerlink" title="独享锁/共享锁"></a>独享锁/共享锁</h4><blockquote>
-<p>顾名思义 独享锁就是同时只能的一个线程持有, 而共享锁同时可以有多个线程一起持有<br>Synchronized 就是一种独享锁<br>lock 接口的 实现 : reentrantLock也是一种独享锁,非readWritLock其读锁是共享锁,写锁是独享锁. 其中读锁在高并发下是非常高效的.读写\写读\写写是互斥的</p>
-</blockquote>
-        
-          <a class="article-more-a" href="/2021/03/05/java%E9%94%81%E6%9C%BA%E5%88%B6/#more">more >></a>
-        
-      
-        
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">并发</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多线程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/05/java%E9%94%81%E6%9C%BA%E5%88%B6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-newBlog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/28/newBlog/">mac+node+githubpage 搭建博客</a>
-    </h1>
   
 
-        
-        <a href="/2021/02/28/newBlog/" class="archive-article-date">
-  	<time datetime="2021-02-28T05:09:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-            <h4 id="1-安装基础依赖"><a href="#1-安装基础依赖" class="headerlink" title="1. 安装基础依赖"></a>1. 安装基础依赖</h4><ol>
-<li>安装node npm hexo<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>node</span><br><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>npm</span><br><span class="line">sudo npm <span class="keyword">install </span>-g hexo</span><br></pre></td></tr></table></figure></li>
-<li> 初始化<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd 目标目录 </span><br><span class="line">hexo init <span class="keyword">blog </span> <span class="comment">#创建一个blog目录,并将其初始化</span></span><br><span class="line">npm <span class="keyword">install </span>		<span class="comment">#将npm安装到此目录</span></span><br></pre></td></tr></table></figure></li>
-<li>启动<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo</span> s 启动hexo服务器</span><br></pre></td></tr></table></figure></li>
-<li>修改hexo 配置<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">打开hexo 创建 的目录下的 _config.yml,文件底部修改为: </span><br><span class="line"><span class="symbol">deploy:</span></span><br><span class="line"><span class="symbol">  type:</span> git</span><br><span class="line"><span class="symbol">  repository:</span> https:<span class="comment">//github.com/gonghonglou/gonghonglou.github.io.git</span></span><br><span class="line"><span class="symbol">   branch:</span> master     </span><br></pre></td></tr></table></figure>
-
-
-
-
-</li>
-</ol>
-
-        </div> 
-    
-        
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">mac</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/mac//" class="article-tag-list-link color4">mac</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/mac/blog//" class="article-tag-list-link color5">blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/28/newBlog/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
+
   
 
 
@@ -479,8 +374,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

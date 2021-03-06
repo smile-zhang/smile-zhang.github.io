@@ -189,7 +189,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1-锁的分类"><a href="#1-锁的分类" class="headerlink" title="1. 锁的分类"></a>1. 锁的分类</h3><h4 id="公平锁和非公平锁-获取锁的方式"><a href="#公平锁和非公平锁-获取锁的方式" class="headerlink" title="公平锁和非公平锁(获取锁的方式)"></a>公平锁和非公平锁(获取锁的方式)</h4><pre><code>&gt; 公平锁是指 按照申请锁的顺序来获取锁
+            <h3 id="1-锁的分类"><a href="#1-锁的分类" class="headerlink" title="1. 锁的分类"></a>1. 锁的分类</h3><h4 id="公平锁和非公平锁-获取锁的方式"><a href="#公平锁和非公平锁-获取锁的方式" class="headerlink" title="公平锁和非公平锁(获取锁的方式)"></a>公平锁和非公平锁(获取锁的方式)</h4><pre><code>&gt; 公平锁是指 按照申请锁的顺序来获取锁
 &gt; 非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).
 &gt; Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁
 &gt; ReentrantLock 可以通过构造函数来决定是不是公平锁,默认是非公平锁
@@ -246,8 +246,9 @@
 <p>解锁之前,判断自己持有的锁是否超时了,如果超时,不重复解锁</p>
 </blockquote>
 <h3 id="4-自旋锁的实现与升级"><a href="#4-自旋锁的实现与升级" class="headerlink" title="4. 自旋锁的实现与升级"></a>4. 自旋锁的实现与升级</h3>
-      
-
+        </div> 
+    
+        
       
         <div class="page-reward">
           <a href="javascript:;" class="page-reward-btn tooltip-top">
@@ -356,6 +357,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2021/03/06/%E5%B9%B6%E5%8F%91%E7%9B%B8%E5%85%B3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          并发相关
+        
+      </div>
+    </a>
   
   
     <a href="/2021/02/28/newBlog/" id="article-nav-older" class="article-nav-link-wrap">
@@ -502,6 +512,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">threadPool</a>
               </li>
             
             <div class="clearfix"></div>

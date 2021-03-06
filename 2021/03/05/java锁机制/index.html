@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>java锁机制 | drew的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1. 锁的分类公平锁和非公平锁(获取锁的方式)&gt; 公平锁是指 按照申请锁的顺序来获取锁 &gt; 非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行). &gt; Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁 &gt; Reentran">
+  <meta name="description" content="1. 锁的分类 公平锁和非公平锁(获取锁的方式)  公平锁是指 按照申请锁的顺序来获取锁非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁ReentrantLock 可以通过构造函数来决定是不是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java锁机制">
 <meta property="og:url" content="http://example.com/2021/03/05/java%E9%94%81%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="drew的博客">
-<meta property="og:description" content="1. 锁的分类公平锁和非公平锁(获取锁的方式)&gt; 公平锁是指 按照申请锁的顺序来获取锁 &gt; 非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行). &gt; Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁 &gt; Reentran">
+<meta property="og:description" content="1. 锁的分类 公平锁和非公平锁(获取锁的方式)  公平锁是指 按照申请锁的顺序来获取锁非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁ReentrantLock 可以通过构造函数来决定是不是">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-03-04T16:09:42.000Z">
-<meta property="article:modified_time" content="2021-03-05T06:24:55.238Z">
+<meta property="article:modified_time" content="2021-03-06T08:45:30.300Z">
 <meta property="article:author" content="drew">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="并发">
@@ -189,24 +189,33 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-            <h3 id="1-锁的分类"><a href="#1-锁的分类" class="headerlink" title="1. 锁的分类"></a>1. 锁的分类</h3><h4 id="公平锁和非公平锁-获取锁的方式"><a href="#公平锁和非公平锁-获取锁的方式" class="headerlink" title="公平锁和非公平锁(获取锁的方式)"></a>公平锁和非公平锁(获取锁的方式)</h4><pre><code>&gt; 公平锁是指 按照申请锁的顺序来获取锁
-&gt; 非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).
-&gt; Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁
-&gt; ReentrantLock 可以通过构造函数来决定是不是公平锁,默认是非公平锁
-</code></pre>
-<h4 id="独享锁-共享锁"><a href="#独享锁-共享锁" class="headerlink" title="独享锁/共享锁"></a>独享锁/共享锁</h4><blockquote>
+            <h4 id="1-锁的分类"><a href="#1-锁的分类" class="headerlink" title="1. 锁的分类"></a>1. 锁的分类</h4><ol>
+<li><p>公平锁和非公平锁(获取锁的方式)</p>
+<blockquote>
+<p>公平锁是指 按照申请锁的顺序来获取锁<br>非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).<br>Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁<br>ReentrantLock 可以通过构造函数来决定是不是公平锁,默认是非公平锁</p>
+</blockquote>
+</li>
+<li><p>独享锁/共享锁</p>
+<blockquote>
 <p>顾名思义 独享锁就是同时只能的一个线程持有, 而共享锁同时可以有多个线程一起持有<br>Synchronized 就是一种独享锁<br>lock 接口的 实现 : reentrantLock也是一种独享锁,非readWritLock其读锁是共享锁,写锁是独享锁. 其中读锁在高并发下是非常高效的.读写\写读\写写是互斥的</p>
 </blockquote>
-<span id="more"></span>
-<h4 id="互斥锁-读写锁-锁的实现-对于独享锁-共享锁"><a href="#互斥锁-读写锁-锁的实现-对于独享锁-共享锁" class="headerlink" title="互斥锁/读写锁(锁的实现 对于独享锁/共享锁)"></a>互斥锁/读写锁(锁的实现 对于独享锁/共享锁)</h4><h4 id="乐观锁-悲观锁-如何看待并发"><a href="#乐观锁-悲观锁-如何看待并发" class="headerlink" title="乐观锁/悲观锁(如何看待并发)"></a>乐观锁/悲观锁(如何看待并发)</h4><blockquote>
+<span id="more"></span></li>
+<li><p>互斥锁/读写锁(锁的实现 对于独享锁/共享锁)</p>
+</li>
+<li><p>乐观锁/悲观锁(如何看待并发)</p>
+<blockquote>
 <p>悲观锁认为 : 对同一个数据(资源)的操作,必定是会有并发修改(冲突)的,即使没有,也认为有,所以对于一次数据操作,悲观锁必定采用加锁操,悲观的认为 不加锁的操作一定会出问题</p>
 </blockquote>
 <blockquote>
 <p>乐观锁认为 : 乐观的认为 不加锁的操作不会出总是, 所以乐观锁是采用无锁编程,常常采用cas算法. 伪代码如下 :</p>
 </blockquote>
+</li>
+</ol>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>查询数据库,查询结果version=<span class="number">1</span></span><br><span class="line"><span class="number">2.</span>执行更新,在<span class="keyword">sql</span> <span class="keyword">where</span>条件中判断 当前 数据中<span class="keyword">version</span>是否等于一,</span><br><span class="line"><span class="number">3.</span>如果等于<span class="number">1</span>表示没有并发,更新成功</span><br><span class="line"><span class="number">4.</span>如果当前数据中 <span class="keyword">version</span>已经不等于<span class="number">1</span> ,则递归执行此方法,直到查询的<span class="keyword">version</span>和更新时的<span class="keyword">version</span>相等</span><br></pre></td></tr></table></figure>
 
-<h4 id="分段锁-锁的设计"><a href="#分段锁-锁的设计" class="headerlink" title="分段锁(锁的设计)"></a>分段锁(锁的设计)</h4><blockquote>
+<ol start="5">
+<li><p>分段锁(锁的设计)</p>
+<blockquote>
 <p>是一种锁的设计方式,典型的如 concurrentHashMap中的put操作,它就是把Node数组中的一个元素(node节点)加锁,当其它实例想要执行put操作时,会先尝试获取锁,如果当前node已经做为锁被其它线程持有了,那线程进行等待,</p>
 <ul>
 <li><p>偏向锁/轻量级锁/重量级锁 (锁的状态)</p>
@@ -215,37 +224,47 @@
 </li>
 </ul>
 </blockquote>
-<h4 id="自旋锁的升级"><a href="#自旋锁的升级" class="headerlink" title="自旋锁的升级"></a>自旋锁的升级</h4><blockquote>
+</li>
+<li><p>自旋锁的升级</p>
+<blockquote>
 <ol>
 <li>可重入  : 引入计数器,如果当前线程又一次执行lock方法,想要获取锁,比较正在持有锁的线程和当前线程,如果一致,则计数器+1 , unlock 方法反之</li>
 <li>公平锁 : 引入服务号和排队号,即每个线程执行lock方法时,排队号+1,unlocak时服务号+1, 线程的循环等待中 ,判断自己的排队号和服务号一致,则获取锁成功</li>
 </ol>
 </blockquote>
-<h3 id="2-synchronized-的两种用法"><a href="#2-synchronized-的两种用法" class="headerlink" title="2. synchronized 的两种用法"></a>2. synchronized 的两种用法</h3><ul>
+</li>
+</ol>
+<h4 id="2-synchronized-的两种用法"><a href="#2-synchronized-的两种用法" class="headerlink" title="2. synchronized 的两种用法"></a>2. synchronized 的两种用法</h4><ol>
 <li><p>synchronized 修饰代码块</p>
 <blockquote>
 <p>在这个代码块被编译为字节码的时候,会在同步块的入口位置和退出位置增加 monitorenter 和monitorexit 指令</p>
 </blockquote>
 </li>
-<li><p> synchronized 修饰方法</p>
+<li><p>synchronized 修饰方法</p>
 <blockquote>
 <p>在class文件的方法表中,这个方法的 access_flags 字段中的 snychrnized 标识位改为1</p>
 </blockquote>
 </li>
-</ul>
+</ol>
 <blockquote>
 <p>JVM中monitorenter和monitorexit字节码依赖于底层的操作系统的Mutex Lock来实现的,使用Mutex Lock需要将当前线程挂起并从用户态切换到内核态来执行.这种切换的代价是非常昂贵的；然而在现实中的大部分情况下，同步方法是运行在单线程环境（无锁竞争环境）如果每次都调用Mutex Lock那么将严重的影响程序的性能。不过在jdk1.6中对锁的实现引入了大量的优化，如锁粗化（Lock Coarsening）、锁消除（Lock Elimination）、轻量级锁（Lightweight Locking）、偏向锁（Biased Locking）、适应性自旋（Adaptive Spinning）等技术来减少锁操作的开销</p>
 </blockquote>
 <ul>
 <li>synchronized 修饰静态方法</li>
 </ul>
-<h3 id="3-redis-分布式锁"><a href="#3-redis-分布式锁" class="headerlink" title="3.  redis 分布式锁"></a>3.  redis 分布式锁</h3><h4 id="lock"><a href="#lock" class="headerlink" title="lock"></a>lock</h4><blockquote>
+<h4 id="3-redis-分布式锁"><a href="#3-redis-分布式锁" class="headerlink" title="3.  redis 分布式锁"></a>3.  redis 分布式锁</h4><ol>
+<li><p>lock</p>
+<blockquote>
 <p>当前锁是否有人持有<br>如果当前锁有人持有,判断是否超时<br>无人持有,或已经超时,但未被删除(未unlocl)时, 也可以获得锁</p>
 </blockquote>
-<h4 id="unloac"><a href="#unloac" class="headerlink" title="unloac"></a>unloac</h4><blockquote>
+</li>
+<li><p>unloac</p>
+<blockquote>
 <p>解锁之前,判断自己持有的锁是否超时了,如果超时,不重复解锁</p>
 </blockquote>
-<h3 id="4-自旋锁的实现与升级"><a href="#4-自旋锁的实现与升级" class="headerlink" title="4. 自旋锁的实现与升级"></a>4. 自旋锁的实现与升级</h3>
+</li>
+</ol>
+<h4 id="4-自旋锁的实现与升级"><a href="#4-自旋锁的实现与升级" class="headerlink" title="4. 自旋锁的实现与升级"></a>4. 自旋锁的实现与升级</h4>
         </div> 
     
         

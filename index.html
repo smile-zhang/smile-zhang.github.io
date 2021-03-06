@@ -185,24 +185,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-            <h2 id="并发相关"><a href="#并发相关" class="headerlink" title="并发相关"></a>并发相关</h2><h3 id="基本多线程的实现方式"><a href="#基本多线程的实现方式" class="headerlink" title="基本多线程的实现方式"></a>基本多线程的实现方式</h3><h4 id="1-继承Thread-类"><a href="#1-继承Thread-类" class="headerlink" title="1.继承Thread 类"></a>1.继承Thread 类</h4><h4 id="2-实现Runnable-接口"><a href="#2-实现Runnable-接口" class="headerlink" title="2.实现Runnable 接口"></a>2.实现Runnable 接口</h4><h4 id="3-实现Callable-接口-gt-有返回值"><a href="#3-实现Callable-接口-gt-有返回值" class="headerlink" title="3.实现Callable 接口 -&gt; 有返回值"></a>3.实现Callable 接口 -&gt; 有返回值</h4><blockquote>
+        <h4 id="基本多线程的实现方式"><a href="#基本多线程的实现方式" class="headerlink" title="基本多线程的实现方式"></a>基本多线程的实现方式</h4><ol>
+<li>继承Thread 类</li>
+<li>实现Runnable 接口</li>
+<li>实现Callable 接口 -&gt; 有返回值<blockquote>
 <p>get() 获取返回值会阻塞主线程</p>
 </blockquote>
-<h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><h4 id="newCachedThreadPool"><a href="#newCachedThreadPool" class="headerlink" title="newCachedThreadPool"></a>newCachedThreadPool</h4><blockquote>
-<p>根据需要来创建新线程的线程池.长时间 不使用的线程会终止,并从缓存移除. <strong>适合 执行很多短期异步任务的程序.</strong> 调用execute 方法来使用以前创建好的线程.如果没有可用的线程,就创建一个线程.</p>
-</blockquote>
-<h4 id="newFixedThreadPool"><a href="#newFixedThreadPool" class="headerlink" title="newFixedThreadPool"></a>newFixedThreadPool</h4><blockquote>
-<p>创建一个指定工作线程数量的线程池。每当提交一个任务就创建一个工作线程，如果工作线程数量达到线程池初始的最大数，则将提交的任务存入到池队列中</p>
-</blockquote>
-<h4 id="newScheduledThreadPool"><a href="#newScheduledThreadPool" class="headerlink" title="newScheduledThreadPool"></a>newScheduledThreadPool</h4><blockquote>
-<p>用于执行定时 或 延时 任务的线程池</p>
-</blockquote>
-<h4 id="newSingleThreadExecutor"><a href="#newSingleThreadExecutor" class="headerlink" title="newSingleThreadExecutor"></a>newSingleThreadExecutor</h4><blockquote>
-<p>创建 ** 只有一个线程的线程池** ,以无界队列的方式来运行该线程,即所有任务都由一个线程来完成,可以保证有序的执行各个任务 .如果这个线程在任务执行期间因为失败(或异常)被终止了,如果需要,可以开启一个新的线程代替它继续执行任务</p>
-</blockquote>
-
-        </div> 
-    
+        
+          <a class="article-more-a" href="/2021/03/06/%E5%B9%B6%E5%8F%91%E7%9B%B8%E5%85%B3/#more">more >></a>
+        
+      
         
       
     </div>
@@ -282,12 +274,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1-锁的分类"><a href="#1-锁的分类" class="headerlink" title="1. 锁的分类"></a>1. 锁的分类</h3><h4 id="公平锁和非公平锁-获取锁的方式"><a href="#公平锁和非公平锁-获取锁的方式" class="headerlink" title="公平锁和非公平锁(获取锁的方式)"></a>公平锁和非公平锁(获取锁的方式)</h4><pre><code>&gt; 公平锁是指 按照申请锁的顺序来获取锁
-&gt; 非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).
-&gt; Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁
-&gt; ReentrantLock 可以通过构造函数来决定是不是公平锁,默认是非公平锁
-</code></pre>
-<h4 id="独享锁-共享锁"><a href="#独享锁-共享锁" class="headerlink" title="独享锁/共享锁"></a>独享锁/共享锁</h4><blockquote>
+        <h4 id="1-锁的分类"><a href="#1-锁的分类" class="headerlink" title="1. 锁的分类"></a>1. 锁的分类</h4><ol>
+<li><p>公平锁和非公平锁(获取锁的方式)</p>
+<blockquote>
+<p>公平锁是指 按照申请锁的顺序来获取锁<br>非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).<br>Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁<br>ReentrantLock 可以通过构造函数来决定是不是公平锁,默认是非公平锁</p>
+</blockquote>
+</li>
+<li><p>独享锁/共享锁</p>
+<blockquote>
 <p>顾名思义 独享锁就是同时只能的一个线程持有, 而共享锁同时可以有多个线程一起持有<br>Synchronized 就是一种独享锁<br>lock 接口的 实现 : reentrantLock也是一种独享锁,非readWritLock其读锁是共享锁,写锁是独享锁. 其中读锁在高并发下是非常高效的.读写\写读\写写是互斥的</p>
 </blockquote>
         
@@ -373,7 +367,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-            <h4 id="1-安装基础依赖"><a href="#1-安装基础依赖" class="headerlink" title="1. 安装基础依赖"></a>1. 安装基础依赖</h4><ol>
+            <h4 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h4><p>最近正在使用hexo 重新搭建博客,之前的内容会逐步更新上来.</p>
+<blockquote>
+<p>相较于 Rube实现的 jekyll 性能更好, 且基于js实现的hexo的可扩展性也更好一点,所以尝试重新搭建,感受一下.</p>
+</blockquote>
+<h4 id="1-安装基础依赖"><a href="#1-安装基础依赖" class="headerlink" title="1. 安装基础依赖"></a>1. 安装基础依赖</h4><ol>
 <li>安装node npm hexo<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>node</span><br><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>npm</span><br><span class="line">sudo npm <span class="keyword">install </span>-g hexo</span><br></pre></td></tr></table></figure></li>
 <li> 初始化<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd 目标目录 </span><br><span class="line">hexo init <span class="keyword">blog </span> <span class="comment">#创建一个blog目录,并将其初始化</span></span><br><span class="line">npm <span class="keyword">install </span>		<span class="comment">#将npm安装到此目录</span></span><br></pre></td></tr></table></figure></li>
 <li>启动<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo</span> s 启动hexo服务器</span><br></pre></td></tr></table></figure></li>

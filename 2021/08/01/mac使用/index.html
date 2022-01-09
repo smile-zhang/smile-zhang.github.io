@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="java,锁,多线程,并发," />
+  <meta name="keywords" content="os,mac,linux,pulgs," />
 
 
 
@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="锁的分类公平锁和非公平锁(获取锁的方式) 公平锁是指 按照申请锁的顺序来获取锁   非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).    Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁    ReentrantLock 可以通过构造函数">
+<meta name="description" content="0. 摘要win转mac使用两年左右的时间，还是有些问题需要重复搜索资料，为避免浪费时间，就在这里记录并分享一下，也希望能为遇到同样的问题的小伙伴提供帮助.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java锁机制">
-<meta property="og:url" content="http://example.com/2021/07/30/java%E9%94%81%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:title" content="mac 使用问题">
+<meta property="og:url" content="http://example.com/2021/08/01/mac%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Drew Blog">
-<meta property="og:description" content="锁的分类公平锁和非公平锁(获取锁的方式) 公平锁是指 按照申请锁的顺序来获取锁   非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).    Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁    ReentrantLock 可以通过构造函数">
+<meta property="og:description" content="0. 摘要win转mac使用两年左右的时间，还是有些问题需要重复搜索资料，为避免浪费时间，就在这里记录并分享一下，也希望能为遇到同样的问题的小伙伴提供帮助.">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-07-30T07:37:08.000Z">
-<meta property="article:modified_time" content="2021-08-02T02:55:20.890Z">
+<meta property="article:published_time" content="2021-08-01T02:37:08.000Z">
+<meta property="article:modified_time" content="2022-01-09T03:27:42.528Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="java">
-<meta property="article:tag" content="锁">
-<meta property="article:tag" content="多线程">
-<meta property="article:tag" content="并发">
+<meta property="article:tag" content="os">
+<meta property="article:tag" content="mac">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="pulgs">
 <meta name="twitter:card" content="summary">
 
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/07/30/java锁机制/"/>
+  <link rel="canonical" href="http://example.com/2021/08/01/mac使用/"/>
 
 
 
 
 
-  <title>java锁机制 | Drew Blog</title>
+  <title>mac 使用问题 | Drew Blog</title>
   
 
 
@@ -310,12 +310,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/30/java%E9%94%81%E6%9C%BA%E5%88%B6/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/01/mac%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/smile-zhang/blog-image@master/20210729/tx.v3y1ikpowq8.png">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/smile-zhang/blog-image@master/20210729/1061628150885_.pic_hd.4wftwassrzs0.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -327,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">java锁机制</h1>
+          <h1 class="post-title" itemprop="name headline">mac 使用问题</h1>
         
 
         <div class="post-meta">
@@ -339,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-30T15:37:08+08:00">
-                2021-07-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-01T10:37:08+08:00">
+                2021-08-01
               </time>
             
 
@@ -377,56 +377,10 @@
       
 
       
-        <h2 id="锁的分类"><a href="#锁的分类" class="headerlink" title="锁的分类"></a>锁的分类</h2><h3 id="公平锁和非公平锁-获取锁的方式"><a href="#公平锁和非公平锁-获取锁的方式" class="headerlink" title="公平锁和非公平锁(获取锁的方式)"></a>公平锁和非公平锁(获取锁的方式)</h3><ol>
-<li><p>公平锁是指 按照申请锁的顺序来获取锁 </p>
-</li>
-<li><p>非公平锁是指锁的获取不是按照申请顺序来的,可能后申请的线程先拿到锁,这就可能出来优先级反转和馋饥饿现象(因为拿不到资源(锁)而不能继续执行).  </p>
-</li>
-<li><p>Synchronized 就是一种公平锁,因为它不是通过 aqs来实现现在调度的,所以任何办法能使它转变为 公平锁  </p>
-</li>
-<li><p>ReentrantLock 可以通过构造函数来决定是不是公平锁,默认是非公平锁  </p>
-</li>
-</ol>
-<h3 id="独享锁-共享锁"><a href="#独享锁-共享锁" class="headerlink" title="独享锁/共享锁"></a>独享锁/共享锁</h3><ol>
-<li><p>顾名思义 独享锁就是同时只能的一个线程持有, 而共享锁同时可以有多个线程一起持有  </p>
-</li>
-<li><p>Synchronized 就是一种独享锁  </p>
-</li>
-</ol>
-<ul>
-<li>lock 接口的 实现 : reentrantLock也是一种独享锁,非readWritLock其读锁是共享锁,写锁是独享锁. 其中读锁在高并发下是非常高效的.读写\写读\写写是互斥的  </li>
-</ul>
-<h3 id="互斥锁-读写锁-锁的实现-对于独享锁-共享锁"><a href="#互斥锁-读写锁-锁的实现-对于独享锁-共享锁" class="headerlink" title="互斥锁/读写锁(锁的实现 对于独享锁/共享锁)"></a>互斥锁/读写锁(锁的实现 对于独享锁/共享锁)</h3><h3 id="乐观锁-悲观锁-如何看待并发"><a href="#乐观锁-悲观锁-如何看待并发" class="headerlink" title="乐观锁/悲观锁(如何看待并发)"></a>乐观锁/悲观锁(如何看待并发)</h3><ul>
-<li><p>悲观锁认为 : 对同一个数据(资源)的操作,必定是会有并发修改(冲突)的,即使没有,也认为有,所以对于一次数据操作,悲观锁必定采用加锁操,悲观的认为 不加锁的操作一定会出问题  </p>
-</li>
-<li><p>乐观锁认为 : 乐观的认为 不加锁的操作不会出总是, 所以乐观锁是采用无锁编程,常常采用cas算法. 伪代码如下 :  </p>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.查询数据库,查询结果version=1</span><br><span class="line">2.执行更新,在sql where条件中判断 当前 数据中version是否等于一,</span><br><span class="line">3.如果等于1表示没有并发,更新成功</span><br><span class="line">4.如果当前数据中 version已经不等于1 ,则递归执行此方法,直到查询的version和更新时的version相等</span><br></pre></td></tr></table></figure>
+        <h2 id="0-摘要"><a href="#0-摘要" class="headerlink" title="0. 摘要"></a>0. 摘要</h2><p>win转mac使用两年左右的时间，还是有些问题需要重复搜索资料，为避免浪费时间，就在这里记录并分享一下，也希望能为遇到同样的问题的小伙伴提供帮助. </p>
+<span id="more"></span>
 
-<h3 id="分段锁-锁的设计"><a href="#分段锁-锁的设计" class="headerlink" title="分段锁(锁的设计)"></a>分段锁(锁的设计)</h3><ul>
-<li>是一种锁的设计方式,典型的如 concurrentHashMap中的put操作,它就是把Node数组中的一个元素(node节点)加锁,当其它实例想要执行put操作时,会先尝试获取锁,如果当前node已经做为锁被其它线程持有了,那线程进行等待  </li>
-<li>偏向锁/轻量级锁/重量级锁 (锁的状态)  </li>
-</ul>
-<h3 id="自旋锁-Java中的自旋锁"><a href="#自旋锁-Java中的自旋锁" class="headerlink" title="自旋锁(Java中的自旋锁)"></a>自旋锁(Java中的自旋锁)</h3><p>是指线程如果获取不到锁,不会立即阻塞,而是通过循环的方式去尝试获取锁,这样做的好像是,减少线程上下文切换的消耗,缺点是循环会消耗cpu.</p>
-<h3 id="自旋锁的升级"><a href="#自旋锁的升级" class="headerlink" title="自旋锁的升级"></a>自旋锁的升级</h3><ul>
-<li>可重入  : 引入计数器,如果当前线程又一次执行lock方法,想要获取锁,比较正在持有锁的线程和当前线程,如果一致,则计数器+1 , unlock 方法反之</li>
-<li>公平锁 : 引入服务号和排队号,即每个线程执行lock方法时,排队号+1,unlocak时服务号+1, 线程的循环等待中 ,判断自己的排队号和服务号一致,则获取锁成功</li>
-</ul>
-<h2 id="synchronized-的两种用法"><a href="#synchronized-的两种用法" class="headerlink" title="synchronized 的两种用法"></a>synchronized 的两种用法</h2><h3 id="synchronized-修饰代码块"><a href="#synchronized-修饰代码块" class="headerlink" title="synchronized 修饰代码块"></a>synchronized 修饰代码块</h3><p>在这个代码块被编译为字节码的时候,会在同步块的入口位置和退出位置增加 monitorenter 和monitorexit 指令</p>
-<h3 id="synchronized-修饰方法"><a href="#synchronized-修饰方法" class="headerlink" title="synchronized 修饰方法"></a>synchronized 修饰方法</h3><p>在class文件的方法表中,这个方法的 access_flags 字段中的 snychrnized 标识位改为1</p>
-<blockquote>
-<p>JVM中monitorenter和monitorexit字节码依赖于底层的操作系统的Mutex Lock来实现的,使用Mutex Lock需要将当前线程挂起并从用户态切换到内核态来执行.这种切换的代价是非常昂贵的；然而在现实中的大部分情况下，同步方法是运行在单线程环境（无锁竞争环境）如果每次都调用Mutex Lock那么将严重的影响程序的性能。不过在jdk1.6中对锁的实现引入了大量的优化，如锁粗化（Lock Coarsening）、锁消除（Lock Elimination）、轻量级锁（Lightweight Locking）、偏向锁（Biased Locking）、适应性自旋（Adaptive Spinning）等技术来减少锁操作的开销</p>
-</blockquote>
-<h3 id="synchronized-修饰静态方法"><a href="#synchronized-修饰静态方法" class="headerlink" title="synchronized 修饰静态方法"></a>synchronized 修饰静态方法</h3><h2 id="redis-分布式锁"><a href="#redis-分布式锁" class="headerlink" title="redis 分布式锁"></a>redis 分布式锁</h2><h3 id="lock"><a href="#lock" class="headerlink" title="lock"></a>lock</h3><ul>
-<li>当前锁是否有人持有</li>
-<li>如果当前锁有人持有,判断是否超时</li>
-<li>无人持有,或已经超时,但未被删除(未unlocl)时, 也可以获得锁</li>
-</ul>
-<h3 id="unloac"><a href="#unloac" class="headerlink" title="unloac"></a>unloac</h3><ul>
-<li>解锁之前,判断自己持有的锁是否超时了,如果超时,不重复解锁</li>
-</ul>
-<h2 id="自旋锁的实现与升级"><a href="#自旋锁的实现与升级" class="headerlink" title="自旋锁的实现与升级"></a>自旋锁的实现与升级</h2>
+
       
     </div>
     
@@ -443,13 +397,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"># java</a>
+            <a href="/tags/os/" rel="tag"># os</a>
           
-            <a href="/tags/%E9%94%81/" rel="tag"># 锁</a>
+            <a href="/tags/mac/" rel="tag"># mac</a>
           
-            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
+            <a href="/tags/linux/" rel="tag"># linux</a>
           
-            <a href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag"># 并发</a>
+            <a href="/tags/pulgs/" rel="tag"># pulgs</a>
           
         </div>
       
@@ -462,8 +416,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/07/30/%E5%B9%B6%E5%8F%91%E7%9B%B8%E5%85%B3/" rel="next" title="并发相关">
-                <i class="fa fa-chevron-left"></i> 并发相关
+              <a href="/2021/07/30/hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" rel="next" title="hexo搭建博客（mac 环境 ）">
+                <i class="fa fa-chevron-left"></i> hexo搭建博客（mac 环境 ）
               </a>
             
           </div>
@@ -472,8 +426,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/07/30/hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" rel="prev" title="hexo搭建博客（mac 环境 ）">
-                hexo搭建博客（mac 环境 ） <i class="fa fa-chevron-right"></i>
+              <a href="/2021/08/05/java%E9%94%81%E6%9C%BA%E5%88%B6/" rel="prev" title="java锁机制">
+                java锁机制 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -541,7 +495,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="https://cdn.jsdelivr.net/gh/smile-zhang/blog-image@master/20210729/tx.v3y1ikpowq8.png"
+                src="https://cdn.jsdelivr.net/gh/smile-zhang/blog-image@master/20210729/1061628150885_.pic_hd.4wftwassrzs0.jpg"
                 alt="" />
             
               <p class="site-author-name" itemprop="name"></p>
@@ -555,7 +509,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -568,7 +522,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -629,7 +583,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-text">锁的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E5%B9%B3%E9%94%81%E5%92%8C%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81-%E8%8E%B7%E5%8F%96%E9%94%81%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-text">公平锁和非公平锁(获取锁的方式)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8B%AC%E4%BA%AB%E9%94%81-%E5%85%B1%E4%BA%AB%E9%94%81"><span class="nav-text">独享锁&#x2F;共享锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E9%94%81-%E8%AF%BB%E5%86%99%E9%94%81-%E9%94%81%E7%9A%84%E5%AE%9E%E7%8E%B0-%E5%AF%B9%E4%BA%8E%E7%8B%AC%E4%BA%AB%E9%94%81-%E5%85%B1%E4%BA%AB%E9%94%81"><span class="nav-text">互斥锁&#x2F;读写锁(锁的实现 对于独享锁&#x2F;共享锁)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%90%E8%A7%82%E9%94%81-%E6%82%B2%E8%A7%82%E9%94%81-%E5%A6%82%E4%BD%95%E7%9C%8B%E5%BE%85%E5%B9%B6%E5%8F%91"><span class="nav-text">乐观锁&#x2F;悲观锁(如何看待并发)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%AE%B5%E9%94%81-%E9%94%81%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="nav-text">分段锁(锁的设计)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81-Java%E4%B8%AD%E7%9A%84%E8%87%AA%E6%97%8B%E9%94%81"><span class="nav-text">自旋锁(Java中的自旋锁)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81%E7%9A%84%E5%8D%87%E7%BA%A7"><span class="nav-text">自旋锁的升级</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized-%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%94%A8%E6%B3%95"><span class="nav-text">synchronized 的两种用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#synchronized-%E4%BF%AE%E9%A5%B0%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-text">synchronized 修饰代码块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#synchronized-%E4%BF%AE%E9%A5%B0%E6%96%B9%E6%B3%95"><span class="nav-text">synchronized 修饰方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#synchronized-%E4%BF%AE%E9%A5%B0%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-text">synchronized 修饰静态方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-text">redis 分布式锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lock"><span class="nav-text">lock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unloac"><span class="nav-text">unloac</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E5%8D%87%E7%BA%A7"><span class="nav-text">自旋锁的实现与升级</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-%E6%91%98%E8%A6%81"><span class="nav-text">0. 摘要</span></a></li></ol></div>
             
 
           </div>
@@ -649,7 +603,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
